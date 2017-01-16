@@ -3,4 +3,5 @@ import pandas as pd
 import tushare as ts
 
 df = ts.get_today_all()
-print(df)
+codeDF = df['code']
+codeDF.to_csv('today.csv')
