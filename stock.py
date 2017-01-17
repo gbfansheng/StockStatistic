@@ -3,9 +3,13 @@ import pandas as pd
 import tushare as ts
 import os
 import datetime
-def get_today():
+
+def downloadToday():
 	df = ts.get_today_all()
 	df.to_csv('today.csv',sep=',', encoding='utf-8')
+	pass
+
+def get_today():
 	todayDf = pd.read_csv('today.csv',sep=',', encoding='utf-8', dtype = str)
 	return todayDf
 
@@ -45,5 +49,7 @@ def downloadHistory():
 			df = ts.get_hist_data(code)
 			df.to_csv(code + '.csv')
 
+
 if __name__=='__main__':   
+	downloadToday()
 	downloadHistory()
