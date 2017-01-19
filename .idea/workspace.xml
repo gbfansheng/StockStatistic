@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f294a5cf-fd5d-461a-b512-b169e146b094" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/today.csv" afterPath="$PROJECT_DIR$/today.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stock.py" afterPath="$PROJECT_DIR$/stock.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/zhangting.py" afterPath="$PROJECT_DIR$/zhangting.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,8 +23,8 @@
       <file leaf-file-name="zhangting.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/zhangting.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="505">
-              <caret line="66" column="26" lean-forward="true" selection-start-line="66" selection-start-column="26" selection-end-line="66" selection-end-column="26" />
+            <state relative-caret-position="1156">
+              <caret line="68" column="21" lean-forward="true" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
               <folding>
                 <element signature="e#25#44#0" expanded="true" />
               </folding>
@@ -354,8 +351,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/zhangting.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="505">
-          <caret line="66" column="26" lean-forward="true" selection-start-line="66" selection-start-column="26" selection-end-line="66" selection-end-column="26" />
+        <state relative-caret-position="1156">
+          <caret line="68" column="21" lean-forward="true" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
           <folding>
             <element signature="e#25#44#0" expanded="true" />
           </folding>

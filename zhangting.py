@@ -7,6 +7,7 @@ import datetime
 import os
 import stock
 
+
 def processDf(code, df):
     global fengban_dict
     global notfeng_dict
@@ -32,7 +33,7 @@ def processDf(code, df):
                 fengban_dict[daystring] = fengban_list
 
             if p_change < 9.9 and (high / open >= 9.9) and high != close and turnover > 3.0:
-                #冲板未封
+                # 冲板未封
                 notfeng_list.append(code)
                 notfeng_dict[daystring] = notfeng_list
 
@@ -40,18 +41,27 @@ def processDf(code, df):
 def saveDict():
     global fengban_dict
     global notfeng_dict
-    f = open(stock.get_data_path() + 'zhangting','w')
+    f = open(stock.get_data_path() + 'zhangting', 'w')
     pickle.dump(fengban_dict, f)
     f.close()
     f = open(stock.get_data_path() + 'notfeng', 'w')
     pickle.dump(notfeng_dict, f)
     f.close()
 
-def getDict():
-    f = open(stock.get_data_path() + 'zhangting','r')
-    dateDict = pickle.load(f)
-    return dateDict
 
+def get_fengban_dict():
+    f = open(stock.get_data_path() + 'zhangting', 'r')
+    dict = pickle.load(f)
+    print ('fengban dict')
+    print (dict)
+    return dict
+
+def get_notfeng_dict():
+    f = open(stock.get_data_path() + 'notfeng', 'r')
+    dict = pickle.load(f)
+    print ('not feng')
+    print (dict)
+    return dict
 
 def zhangting():
     global fengban_dict
@@ -71,7 +81,7 @@ def zhangting():
     saveDict()
 
 
-
 if __name__ == '__main__':
     zhangting()
-    getDict()
+    get_fengban_dict()
+    get_notfeng_dict()
