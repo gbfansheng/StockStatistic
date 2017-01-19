@@ -28,7 +28,7 @@ def read(code):
     fileName = code + '.csv'
     # 文件是否存在
     if os.path.isfile(get_data_path() + fileName):
-        df = pd.read_csv(fileName, sep=',', encoding='utf-8', dtype=str)
+        df = pd.read_csv(get_data_path() + fileName, sep=',', encoding='utf-8', dtype=str)
         return df
     else:
         return None

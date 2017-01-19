@@ -8,33 +8,44 @@ import os
 import stock
 
 def processDf(code, df):
-    global dateDict
-    begin = datetime.date(2016, 12, 30)
+    global fengban_dict
+    global notfeng_dict
+    begin = datetime.date(2016, 10, 20)
     end = datetime.datetime.now().date()
     for i in range((end - begin).days + 1):
         day = begin + datetime.timedelta(days=i)
         daystring = day.strftime('%Y-%m-%d')
         dfForDay = df[df['date'].isin([daystring])]
-        datelist = dateDict.get(daystring, [])
+        fengban_list = fengban_dict.get(daystring, [])
+        notfeng_list = notfeng_list.get(daystring, [])
 
         # 当天有数据
         if not dfForDay.empty:
             p_change = float(dfForDay['p_change'])
             high = float(dfForDay['high'])
             close = float(dfForDay['close'])
+            open = float(dfForDay['open'])
             turnover = float(dfForDay['turnover'])
             if p_change > 9.9 and p_change < 11 and high == close and turnover > 3.0:
                 # 如果涨停则保存
-                datelist.append(code)
-                dateDict[daystring] = datelist
+                fengban_list.append(code)
+                fengban_dict[daystring] = fengban_list
+
+            if p_change < 9.9 and (high / open >= 9.9) and high != close and turnover > 3.0:
+                #冲板未封
+                notfeng_list.append(code)
+                notfeng_dict[daystring] = notfeng_list
 
 
 def saveDict():
-    global dateDict
+    global fengban_dict
+    global notfeng_dict
     f = open(stock.get_data_path() + 'zhangting','w')
-    pickle.dump(dateDict,f)
+    pickle.dump(fengban_dict, f)
     f.close()
-
+    f = open(stock.get_data_path() + 'notfeng', 'w')
+    pickle.dump(notfeng_dict, f)
+    f.close()
 
 def getDict():
     f = open(stock.get_data_path() + 'zhangting','r')
@@ -43,8 +54,10 @@ def getDict():
 
 
 def zhangting():
-    global dateDict
-    dateDict = {}
+    global fengban_dict
+    global notfeng_dict
+    fengban_dict = {}
+    notfeng_dict = {}
     todayDF = stock.get_today()
     codeList = list(todayDF['code'])
     for code in codeList:
