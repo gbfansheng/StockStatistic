@@ -5,6 +5,8 @@ import pickle
 import datetime
 import stock
 import zhangting
+import matplotlib.pyplot as plt
+
 
 
 def caculate_fengban_rate():
@@ -35,6 +37,15 @@ def save_zhangting_rate():
     f.close()
     print (zhangting_rate_dict)
 
+
+def zhangting_rate_chart():
+    plt.plot([1, 2, 3, 4])
+    plt.ylabel('some numbers')  # 为y轴加注释
+    plt.show()
+
+
+
 if __name__ == '__main__':
-    caculate_fengban_rate()
-    save_zhangting_rate()
+    # caculate_fengban_rate()
+    # save_zhangting_rate()
+    zhangting_rate_chart()

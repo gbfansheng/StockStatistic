@@ -24,6 +24,7 @@ def get_data_path():
         os.makedirs(data_path)
     return data_path
 
+
 def read(code):
     fileName = code + '.csv'
     # 文件是否存在
