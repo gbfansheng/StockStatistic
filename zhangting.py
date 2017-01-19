@@ -11,31 +11,37 @@ import stock
 def processDf(code, df):
     global fengban_dict
     global notfeng_dict
-    begin = datetime.date(2016, 10, 20)
+    begin = begin_date()
     end = datetime.datetime.now().date()
     for i in range((end - begin).days + 1):
-        day = begin + datetime.timedelta(days=i)
-        daystring = day.strftime('%Y-%m-%d')
-        dfForDay = df[df['date'].isin([daystring])]
-        fengban_list = fengban_dict.get(daystring, [])
-        notfeng_list = notfeng_list.get(daystring, [])
+        zhangting_day = begin + datetime.timedelta(days=i)
+        before_zhangting_day = zhangting_day - datetime.timedelta(days=1)
+        zhangting_daystring = zhangting_day.strftime('%Y-%m-%d')
+        before_zhangting_daystring = before_zhangting_day.strftime('%Y-%m-%d')
+        df_zhangting_day = df[df['date'].isin([zhangting_daystring])]
+        df_before_zhangting_day = df[df['date'].isin([before_zhangting_daystring])]
+        fengban_list = fengban_dict.get(zhangting_daystring, [])
+        notfeng_list = notfeng_dict.get(zhangting_daystring, [])
 
         # 当天有数据
-        if not dfForDay.empty:
-            p_change = float(dfForDay['p_change'])
-            high = float(dfForDay['high'])
-            close = float(dfForDay['close'])
-            open = float(dfForDay['open'])
-            turnover = float(dfForDay['turnover'])
+        if not df_zhangting_day.empty and not df_before_zhangting_day.empty:
+            p_change = float(df_zhangting_day['p_change'])
+            high = float(df_zhangting_day['high'])
+            close = float(df_zhangting_day['close'])
+            base_price = float(df_before_zhangting_day['close'])
+            turnover = float(df_zhangting_day['turnover'])
             if p_change > 9.9 and p_change < 11 and high == close and turnover > 3.0:
                 # 如果涨停则保存
                 fengban_list.append(code)
-                fengban_dict[daystring] = fengban_list
+                fengban_dict[zhangting_daystring] = fengban_list
 
-            if p_change < 9.9 and (high / open >= 9.9) and high != close and turnover > 3.0:
+            if (high / base_price) >= 1.099 and high != close and turnover > 3.0:
                 # 冲板未封
                 notfeng_list.append(code)
-                notfeng_dict[daystring] = notfeng_list
+                notfeng_dict[zhangting_daystring] = notfeng_list
+
+def begin_date():
+    return datetime.date(2016, 10, 20);
 
 
 def saveDict():
@@ -52,15 +58,11 @@ def saveDict():
 def get_fengban_dict():
     f = open(stock.get_data_path() + 'zhangting', 'r')
     dict = pickle.load(f)
-    print ('fengban dict')
-    print (dict)
     return dict
 
 def get_notfeng_dict():
     f = open(stock.get_data_path() + 'notfeng', 'r')
     dict = pickle.load(f)
-    print ('not feng')
-    print (dict)
     return dict
 
 def zhangting():
