@@ -44,6 +44,7 @@ def downloadHistory():
     todayDF = get_today()
     codeList = list(todayDF['code'])
     for code in codeList:
+        print (code)
         codeDF = read(code)
         if codeDF is None:
             print('downloading ' + code)

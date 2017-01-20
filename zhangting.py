@@ -41,7 +41,7 @@ def processDf(code, df):
                 notfeng_dict[zhangting_daystring] = notfeng_list
 
 def begin_date():
-    return datetime.date(2016, 1, 1);
+    return datetime.date(2016, 12, 1);
 
 
 def saveDict():
