@@ -28,20 +28,28 @@ def processDf(code, df):
             p_change = float(df_zhangting_day['p_change'])
             high = float(df_zhangting_day['high'])
             close = float(df_zhangting_day['close'])
+            low = float(df_zhangting_day['low'])
             base_price = float(df_before_zhangting_day['close'])
             turnover = float(df_zhangting_day['turnover'])
-            if p_change > 9.9 and p_change < 11 and high == close and turnover > 3.0:
+            print code, p_change, high, close, turnover
+            if p_change >= 9.9 and p_change < 11 and high == close and turnover > 10:
                 # 如果涨停则保存
                 fengban_list.append(code)
                 fengban_dict[zhangting_daystring] = fengban_list
+            else:
+                if p_change >= 9.9 and p_change < 11 and high == close and high != low:
+                    # 如果涨停则保存
+                    fengban_list.append(code)
+                    fengban_dict[zhangting_daystring] = fengban_list
 
-            if (high / base_price) >= 1.099 and high != close and turnover > 3.0:
+
+            if (high / base_price) >= 1.099 and high != close and turnover > 0.1:
                 # 冲板未封
                 notfeng_list.append(code)
                 notfeng_dict[zhangting_daystring] = notfeng_list
 
 def begin_date():
-    return datetime.date(2016, 12, 1);
+    return datetime.date(2017, 1, 18);
 
 
 def saveDict():
@@ -58,11 +66,13 @@ def saveDict():
 def get_fengban_dict():
     f = open(stock.get_data_path() + 'zhangting', 'r')
     dict = pickle.load(f)
+    print dict
     return dict
 
 def get_notfeng_dict():
     f = open(stock.get_data_path() + 'notfeng', 'r')
     dict = pickle.load(f)
+    print dict
     return dict
 
 def zhangting():

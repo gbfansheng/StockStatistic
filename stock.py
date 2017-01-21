@@ -35,8 +35,8 @@ def read(code):
         return None
 
 
-def save(df, code):
-    fileName = code + '.csv'
+def save(df, name):
+    fileName = name + '.csv'
     df.to_csv(get_data_path() + fileName)
 
 
@@ -68,7 +68,7 @@ def downloadHistory():
                 dt = dt + datetime.timedelta(days=1)
                 dtstring = dt.strftime('%Y-%m-%d')
                 additionDF = ts.get_hist_data(code=code, start=dtstring, end=nowdtstring)
-                concatDF = additionDF.append(codeDF)
+                concatDF = pd.concat([additionDF, df])
                 save(concatDF, code)
 
 
