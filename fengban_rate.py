@@ -5,8 +5,7 @@ import pickle
 import datetime
 import stock
 import zhangting
-import matplotlib.pyplot as plt
-import matplotlib.dates
+
 
 def caculate_fengban_rate():
     global zhangting_rate_dict
