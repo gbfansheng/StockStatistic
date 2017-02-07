@@ -161,6 +161,7 @@ def caculate_rou():
     lanban_low_rou_dict = {}
 
     for key in zhangting.get_fengban_dict():
+        print key
         high_rate_list = []
         open_rate_list = []
         close_rate_list = []
@@ -222,7 +223,7 @@ def caculate_rou():
             fengban_close_rou_dict[key] = close_rate
             fengban_low_rou_dict[key] = low_rate
 
-        notfeng_list = notfeng_dict[key]
+        notfeng_list = notfeng_dict.get(key, [])
         wunao_open_rate_list.extend(open_rate_list)
         wunao_high_rate_list.extend(high_rate_list)
         wunao_close_rate_list.extend(close_rate_list)
@@ -269,29 +270,32 @@ def caculate_rou():
                 lanban_close_rate_list.append(close_rate)
                 lanban_low_rate_list.append(low_rate)
 
-        if len(wunao_open_rate_list) > 0 :
+        if len(wunao_open_rate_list) > 0:
             wunao_open_rate = sum(wunao_open_rate_list) / len(wunao_open_rate_list)
             wunao_high_rate = sum(wunao_high_rate_list) / len(wunao_high_rate_list)
             wunao_close_rate = sum(wunao_close_rate_list) / len(wunao_close_rate_list)
             wunao_low_rate = sum(wunao_low_rate_list) / len(wunao_low_rate_list)
-
-            lanban_open_rate = sum(lanban_open_rate_list) / len(lanban_open_rate_list)
-            lanban_high_rate = sum(lanban_high_rate_list) / len(lanban_high_rate_list)
-            lanban_close_rate = sum(lanban_close_rate_list) / len(lanban_close_rate_list)
-            lanban_low_rate = sum(lanban_low_rate_list) / len(lanban_low_rate_list)
 
             wunao_open_rou_dict[key] = wunao_open_rate
             wunao_high_rou_dict[key] = wunao_high_rate
             wunao_close_rou_dict[key] = wunao_close_rate
             wunao_low_rou_dict[key] = wunao_low_rate
 
+
+        if len(lanban_open_rate_list) > 0:
+
+            lanban_open_rate = sum(lanban_open_rate_list) / len(lanban_open_rate_list)
+            lanban_high_rate = sum(lanban_high_rate_list) / len(lanban_high_rate_list)
+            lanban_close_rate = sum(lanban_close_rate_list) / len(lanban_close_rate_list)
+            lanban_low_rate = sum(lanban_low_rate_list) / len(lanban_low_rate_list)
+
             lanban_open_rou_dict[key] = lanban_open_rate
             lanban_high_rou_dict[key] = lanban_high_rate
             lanban_close_rou_dict[key] = lanban_close_rate
             lanban_low_rou_dict[key] = lanban_low_rate
 
-
 def rate_of_all():
+    print 'start'
     zhangting_rate_dict = fengban_rate.read_zhangting_rate_dict()
     fengban_dict = zhangting.get_fengban_dict()
     notfeng_dict = zhangting.get_notfeng_dict()
@@ -329,7 +333,6 @@ def rate_of_all():
     lanban_low_rate_list = []
 
     for key in zhangting_rate_dict:
-        print (key)
         fengban_list = fengban_dict.get(key, [])
         notfeng_list = notfeng_dict.get(key, [])
         fengban_count_list.append(len(fengban_list))
